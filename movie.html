@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galaxy Movie - Premium Store</title>
+  <style>
+    :root{
+      --primary:#e53935;
+      --primary-2:#ff4d4f;
+      --bg:#0b1020;
+      --bg-soft:#111827;
+      --panel:#151d2b;
+      --panel-2:#101826;
+      --panel-3:#182334;
+      --text:#f3f7ff;
+      --muted:#a6b1c2;
+      --gold:#f5c76d;
+      --green:#25d366;
+      --danger:#ff5a5f;
+      --shadow:0 24px 60px rgba(0,0,0,.38);
+      --radius:22px;
+      --soft-radius:16px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top left, rgba(229,57,53,.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(245,199,109,.08), transparent 28%),
+        var(--bg);
+      color:var(--text);
+      font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height:1.55;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,input,select{
+      font:inherit;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:0 auto;
+      padding:24px 16px 80px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+
+    .brand-mark{
+      width:48px;
+      height:48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      background:linear-gradient(135deg, var(--primary), #b71c1c);
+      box-shadow:0 10px 20px rgba(229,57,53,.35);
+      font-size:22px;
+    }
+
+    .brand-text{
+      font-size:1.02rem;
+    }
+
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .mini-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.8rem;
+      font-weight:600;
+    }
+
+    .mini-badge .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 12px rgba(37,211,102,.8);
+      animation:pulse 1.5s infinite;
+    }
+
+    @keyframes pulse{
+      0% { transform:scale(.9); box-shadow:0 0 0 0 rgba(37,211,102,.7);}
+      70% { transform:scale(1); box-shadow:0 0 0 12px rgba(37,211,102,0);}
+      100% { transform:scale(.9); box-shadow:0 0 0 0 rgba(37,211,102,0);}
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg, rgba(18,24,38,.98), rgba(11,16,32,.96));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      padding:28px 22px;
+      margin-bottom:24px;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(229,57,53,.12), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,.03), transparent 50%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:22px;
+      align-items:center;
+    }
+
+    .title-wrap{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      width:max-content;
+      align-items:center;
+      gap:8px;
+      background:rgba(229,57,53,.12);
+      border:1px solid rgba(229,57,53,.28);
+      color:#ffd4d4;
+      font-size:.74rem;
+      font-weight:800;
+      padding:7px 12px;
+      border-radius:999px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(2.1rem, 4vw, 4.1rem);
+      line-height:1.06;
+      letter-spacing:-.04em;
+    }
+
+    .highlight{
+      background:linear-gradient(90deg, #ffd166, #ff9f1c, #ff4d4f);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .subtitle{
+      margin:0;
+      max-width:620px;
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    .hero-stats{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .stat{
+      min-width:130px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      padding:13px 14px;
+      border-radius:16px;
+    }
+
+    .stat strong{
+      color:#fff;
+      font-size:1.14rem;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:.73rem;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:8px;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
+      font-weight:800;
+      letter-spacing:.01em;
+      padding:14px 20px;
+      border-radius:14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.04);
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--primary), #b71c1c);
+      color:#fff;
+      box-shadow:0 12px 22px rgba(229,57,53,.25);
+    }
+
+    .btn-success{
+      background:linear-gradient(135deg, var(--green), #128c7e);
+      color:#fff;
+      box-shadow:0 12px 22px rgba(37,211,102,.25);
+    }
+
+    .btn-ghost{
+      background:rgba(255,255,255,.03);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.1);
+    }
+
+    .hero-card{
+      min-height:220px;
+      padding:18px;
+      border-radius:26px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .qr-preview{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+      border-radius:22px;
+      background:#f9fafb;
+      min-height:180px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .qr-preview img{
+      display:block;
+      width:100%;
+      max-width:290px;
+      height:auto;
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 10px 18px rgba(0,0,0,.18);
+    }
+
+    .chip{
+      display:inline-flex;
+      width:max-content;
+      align-items:center;
+      gap:8px;
+      background:rgba(37,211,102,.08);
+      border:1px solid rgba(37,211,102,.25);
+      color:#baf5d2;
+      border-radius:999px;
+      padding:8px 12px;
+      font-weight:700;
+      font-size:.78rem;
+    }
+
+    .section{
+      background:rgba(19,26,40,.86);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:26px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      margin-top:28px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .section-title{
+      margin:0;
+      font-size:1.38rem;
+      font-weight:800;
+    }
+
+    .subtle{
+      color:var(--muted);
+      font-size:.86rem;
+    }
+
+    .price-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:16px;
+    }
+
+    .price-box{
+      padding:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+    }
+
+    .price-box h3{
+      margin:0 0 14px;
+      font-size:1rem;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      color:#fff;
+    }
+
+    .pack-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .pack-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:14px;
+    }
+
+    .pack-name{
+      font-weight:600;
+      color:#edf3ff;
+      font-size:.96rem;
+    }
+
+    .pack-price{
+      font-weight:800;
+      color:var(--gold);
+      white-space:nowrap;
+    }
+
+    .trust-row{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:14px;
+    }
+
+    .trust-item{
+      text-align:center;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:15px 12px;
+      color:var(--muted);
+      font-size:.82rem;
+    }
+
+    .trust-item strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:1.2rem;
+      color:#fff;
+      font-weight:800;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
+      margin-top:14px;
+    }
+
+    .panel{
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      padding:18px;
+    }
+
+    .panel h3{
+      margin:0 0 16px;
+      font-size:1.08rem;
+      color:#fff;
+    }
+
+    .form-grid{
+      display:grid;
+      gap:14px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field label{
+      color:var(--muted);
+      font-size:.8rem;
+    }
+
+    .field input, .field select{
+      width:100%;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:#0d1421;
+      color:#fff;
+      outline:none;
+      transition:border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .field input:focus, .field select:focus{
+      border-color:rgba(245,199,109,.9);
+      box-shadow:0 0 0 3px rgba(245,199,109,.12);
+    }
+
+    .summary-card{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      background:linear-gradient(180deg, rgba(229,57,53,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(229,57,53,.24);
+      border-radius:22px;
+      padding:18px;
+      height:100%;
+    }
+
+    .summary-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .summary-item{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      padding-bottom:8px;
+    }
+
+    .summary-item:last-child{
+      border-bottom:none;
+      padding-bottom:0;
+    }
+
+    .notes{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:.83rem;
+      line-height:1.8;
+    }
+
+    .floating-wa{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      z-index:50;
+      width:62px;height:62px;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--green), #128c7e);
+      border:none;
+      cursor:pointer;
+      color:#fff;
+      font-size:28px;
+      box-shadow:0 22px 40px rgba(37,211,102,.38);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .floating-wa:hover{
+      transform:translateY(-3px) scale(1.03);
+      box-shadow:0 26px 44px rgba(37,211,102,.48);
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:120;
+      padding:18px;
+    }
+
+    .modal.active{
+      display:flex;
+    }
+
+    .modal-box{
+      width:min(100%, 520px);
+      background:#fff;
+      color:#101827;
+      border-radius:26px;
+      box-shadow:0 28px 60px rgba(0,0,0,.4);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .modal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .modal-header h3{
+      margin:0;
+      font-size:1.3rem;
+      letter-spacing:-.02em;
+    }
+
+    .close-btn{
+      width:40px;height:40px;
+      border:none;
+      border-radius:10px;
+      background:#eef2ff;
+      cursor:pointer;
+      font-size:1.1rem;
+      font-weight:700;
+      color:#111827;
+    }
+
+    .modal-qris-wrap{
+      background:#f5f7fb;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .modal-qris-wrap img{
+      display:block;
+      width:100%;
+      max-width:420px;
+      margin:0 auto;
+      height:auto;
+      border-radius:12px;
+      background:#fff;
+    }
+
+    .modal-footer{
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .small-btn{
+      border:none;
+      cursor:pointer;
+      padding:10px 14px;
+      border-radius:11px;
+      font-weight:700;
+    }
+
+    .small-btn.primary{
+      background:#111827;
+      color:#fff;
+    }
+
+    .small-btn.success{
+      background:#25d366;
+      color:#fff;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:26px;
+      transform:translateX(-50%) translateY(20px);
+      background:#111827;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 16px;
+      border-radius:12px;
+      font-size:.82rem;
+      box-shadow:0 18px 40px rgba(0,0,0,.28);
+      opacity:0;
+      pointer-events:none;
+      transition:all .22s ease;
+      z-index:140;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 900px){
+      .hero-inner, .content-grid{
+        grid-template-columns:1fr;
+      }
+      .price-grid, .trust-row{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px){
+      .container{
+        padding-left:12px;
+        padding-right:12px;
+      }
+      .hero, .section{
+        padding:18px 14px;
+        border-radius:22px;
+      }
+      .price-grid, .trust-row{
+        grid-template-columns:1fr;
+      }
+      .topbar{
+        align-items:flex-start;
+      }
+      .brand{ width:100%; }
+      .top-actions{ width:100%; }
+      .mini-badge{ flex:1; justify-content:center; }
+      .cta-row{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+      .btn{
+        width:100%;
+      }
+      .floating-wa{
+        width:58px;height:58px;
+        right:16px;bottom:16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">🎬</div>
+        <div class="brand-text">Galaxy Movie</div>
+      </div>
+
+      <div class="top-actions">
+        <div class="mini-badge"><span class="dot"></span> Admin Online</div>
+        <div class="mini-badge">🚀 Proses Cepat</div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="title-wrap">
+          <div class="eyebrow">Premium Streaming</div>
+          <h1>Jual <span class="highlight">Netflix</span> Aman & Praktis</h1>
+          <p class="subtitle">
+            Paket sharing/private dengan proses cepat, support aktif, dan garansi full durasi.
+            Cocok untuk kebutuhan pribadi, keluarga, atau kebutuhan harian.
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>4K UHD</strong>
+              <span>Quality Premium</span>
+            </div>
+            <div class="stat">
+              <strong>1-2 Menit</strong>
+              <span>Proses Cepat</span>
+            </div>
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>Support Aktif</span>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <button class="btn btn-primary" onclick="scrollToSection('order')">📦 Order Sekarang</button>
+            <button class="btn btn-ghost" onclick="openQRModal()">📱 Lihat QRIS</button>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="qr-preview">
+            <img src="qris.png" alt="QRIS Galaxy Movie" onerror="this.onerror=null;this.src='https://placehold.co/500x500/f5f7fb/111827?text=QRIS+Image';">
+          </div>
+          <div class="chip">✅ Pembayaran QRIS Aman</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Daftar Harga</h2>
+        <div class="subtle">Pilih paket sesuai kebutuhanmu</div>
+      </div>
+
+      <div class="price-grid">
+        <div class="price-box">
+          <h3>Netflix Sharing</h3>
+          <div class="pack-list">
+            <div class="pack-item">
+              <span class="pack-name">Sharing 1 Hari</span>
+              <span class="pack-price">Rp 10.000</span>
+            </div>
+            <div class="pack-item">
+              <span class="pack-name">Sharing 1 Minggu</span>
+              <span class="pack-price">Rp 15.000</span>
+            </div>
+            <div class="pack-item">
+              <span class="pack-name">Sharing 1 Bulan</span>
+              <span class="pack-price">Rp 20.000</span>
+            </div>
+            <div class="pack-item">
+              <span class="pack-name">Sharing 2 Bulan</span>
+              <span class="pack-price">Rp 40.000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="price-box">
+          <h3>Netflix Private</h3>
+          <div class="pack-list">
+            <div class="pack-item">
+              <span class="pack-name">Private 1 Hari</span>
+              <span class="pack-price">Rp 12.000</span>
+            </div>
+            <div class="pack-item">
+              <span class="pack-name">Private 1 Minggu</span>
+              <span class="pack-price">Rp 17.000</span>
+            </div>
+            <div class="pack-item">
+              <span class="pack-name">Private 1 Bulan</span>
+              <span class="pack-price">Rp 25.000</span>
+            </div>
+            <div class="pack-item">
+              <span class="pack-name">Private 2 Bulan</span>
+              <span class="pack-price">Rp 50.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-item">
+          <strong>100%</strong>
+          Original
+        </div>
+        <div class="trust-item">
+          <strong>24/7</strong>
+          Support
+        </div>
+        <div class="trust-item">
+          <strong>Fast</strong>
+          Proses
+        </div>
+        <div class="trust-item">
+          <strong>Secure</strong>
+          Payment
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="order">
+      <div class="section-head">
+        <h2 class="section-title">Form Order</h2>
+        <div class="subtle">Isi data berikut lalu kirim order via WhatsApp</div>
+      </div>
+
+      <div class="content-grid">
+        <div class="panel">
+          <h3>Data Pembeli</h3>
+
+          <form id="orderForm">
+            <div class="form-grid">
+              <div class="field">
+                <label for="nama">Nama Pembeli</label>
+                <input type="text" id="nama" placeholder="Masukkan nama lengkap" required />
+              </div>
+
+              <div class="field">
+                <label for="nomor">Nomor WhatsApp</label>
+                <input type="tel" id="nomor" placeholder="Contoh: 081234567890" required />
+              </div>
+
+              <div class="field">
+                <label for="paket">Pilih Paket</label>
+                <select id="paket" required>
+                  <option value="">-- Pilih paket --</option>
+                  <optgroup label="Netflix Sharing">
+                    <option value="Netflix Sharing 1 Hari - Rp 10.000">Netflix Sharing 1 Hari - Rp 10.000</option>
+                    <option value="Netflix Sharing 1 Minggu - Rp 15.000">Netflix Sharing 1 Minggu - Rp 15.000</option>
+                    <option value="Netflix Sharing 1 Bulan - Rp 20.000">Netflix Sharing 1 Bulan - Rp 20.000</option>
+                    <option value="Netflix Sharing 2 Bulan - Rp 40.000">Netflix Sharing 2 Bulan - Rp 40.000</option>
+                  </optgroup>
+                  <optgroup label="Netflix Private">
+                    <option value="Netflix Private 1 Hari - Rp 12.000">Netflix Private 1 Hari - Rp 12.000</option>
+                    <option value="Netflix Private 1 Minggu - Rp 17.000">Netflix Private 1 Minggu - Rp 17.000</option>
+                    <option value="Netflix Private 1 Bulan - Rp 25.000">Netflix Private 1 Bulan - Rp 25.000</option>
+                    <option value="Netflix Private 2 Bulan - Rp 50.000">Netflix Private 2 Bulan - Rp 50.000</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="catatan">Catatan Tambahan</label>
+                <input type="text" id="catatan" placeholder="Contoh: Mohon proses cepat" />
+              </div>
+
+              <button class="btn btn-success" type="submit">💬 Kirim Order via WhatsApp</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="panel">
+          <h3>Ringkasan Order</h3>
+          <div class="summary-card">
+            <div class="summary-list">
+              <div class="summary-item">
+                <span>Nama</span>
+                <strong id="sumNama">-</strong>
+              </div>
+              <div class="summary-item">
+                <span>WhatsApp</span>
+                <strong id="sumNomor">-</strong>
+              </div>
+              <div class="summary-item">
+                <span>Paket</span>
+                <strong id="sumPaket">-</strong>
+              </div>
+              <div class="summary-item">
+                <span>Catatan</span>
+                <strong id="sumCatatan">-</strong>
+              </div>
+            </div>
+
+            <div class="chip">✅ Pembayaran via QRIS</div>
+          </div>
+
+          <div class="notes">
+            Pastikan nama, nomor WhatsApp, dan paket yang dipilih sudah benar.
+            Setelah transfer selesai, kirim bukti pembayaran via WhatsApp agar admin bisa segera memproses order Anda.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </div>
+
+  <button class="floating-wa" aria-label="Chat WhatsApp" onclick="openWA()">💬</button>
+
+  <div class="modal" id="qrModal" aria-modal="true" role="dialog">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>QRIS Pembayaran</h3>
+        <button class="close-btn" aria-label="Tutup" onclick="closeQRModal()">✕</button>
+      </div>
+
+      <div class="modal-qris-wrap">
+        <img src="qris.png" alt="QRIS pembayaran" onerror="this.onerror=null;this.src='https://placehold.co/500x500/f5f7fb/111827?text=QRIS+Image';">
+      </div>
+
+      <div class="modal-footer">
+        <button class="small-btn primary" onclick="copyText('https://wa.me/message/BUJQ37K4CSDBG1')">Copy WA</button>
+        <button class="small-btn success" onclick="openWA()">Chat Admin</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const WA_LINK = "https://wa.me/message/BUJQ37K4CSDBG1";
+    const orderForm = document.getElementById("orderForm");
+    const namaInput = document.getElementById("nama");
+    const nomorInput = document.getElementById("nomor");
+    const paketInput = document.getElementById("paket");
+    const catatanInput = document.getElementById("catatan");
+
+    function scrollToSection(id){
+      document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    function updateSummary(){
+      document.getElementById("sumNama").textContent = namaInput.value.trim() || "-";
+      document.getElementById("sumNomor").textContent = nomorInput.value.trim() || "-";
+      document.getElementById("sumPaket").textContent = paketInput.value || "-";
+      document.getElementById("sumCatatan").textContent = catatanInput.value.trim() || "-";
+    }
+
+    [namaInput, nomorInput, paketInput, catatanInput].forEach(el => {
+      el.addEventListener("input", updateSummary);
+      el.addEventListener("change", updateSummary);
+    });
+
+    function openWA(){
+      window.open(WA_LINK, "_blank");
+    }
+
+    function openQRModal(){
+      document.getElementById("qrModal").classList.add("active");
+    }
+
+    function closeQRModal(){
+      document.getElementById("qrModal").classList.remove("active");
+    }
+
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape"){
+        closeQRModal();
+      }
+    });
+
+    function showToast(msg){
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1800);
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("Link WhatsApp berhasil disalin!");
+      }catch{
+        showToast("Browser tidak bisa menyalin. Silakan copy manual.");
+      }
+    }
+
+    orderForm.addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const nama = namaInput.value.trim();
+      const nomor = nomorInput.value.trim();
+      const paket = paketInput.value.trim();
+      const catatan = catatanInput.value.trim();
+
+      if(!nama || !nomor || !paket){
+        showToast("Nama, nomor WhatsApp, dan paket harus diisi.");
+        return;
+      }
+
+      const pesan = encodeURIComponent(
+        "Halo Admin Galaxy Movie,\n\nSaya ingin order:\n" +
+        "Nama: " + nama + "\n" +
+        "Nomor WhatsApp: " + nomor + "\n" +
+        "Paket: " + paket + "\n" +
+        "Catatan: " + (catatan || "-") + "\n\nSaya sudah bayar via QRIS dan akan kirim bukti pembayaran."
+      );
+
+      const finalWA = WA_LINK + "?text=" + pesan;
+
+      window.open(finalWA, "_blank");
+    });
+
+    document.getElementById("qrModal").addEventListener("click", function(e){
+      if(e.target === this) closeQRModal();
+    });
+  </script>
+
+</body>
+</html>
