@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Movie - Premium Store</title>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: #111827;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid #1f2937;
+        }
+
+        .header h1 {
+            color: #e50914;
+            text-align: center;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: #9ca3af;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .produk-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1f2937;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            border-left: 4px solid #e50914;
+        }
+
+        .nama-paket {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .harga {
+            font-weight: 800;
+            color: #f39c12;
+            font-size: 16px;
+        }
+
+        /* Gaya Form Input Data */
+        .form-box {
+            background-color: #1f2937;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border: 1px solid #374151;
+        }
+
+        .form-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #f39c12;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #4b5563;
+            background-color: #111827;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #e50914;
+        }
+
+        .pembayaran-box {
+            background-color: #1f2937;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 25px;
+            text-align: center;
+            border: 1px dashed #4b5563;
+        }
+
+        .nomor-rekening {
+            font-size: 18px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin: 10px 0;
+            letter-spacing: 1px;
+        }
+
+        .btn-salin {
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .btn-salin:hover {
+            background-color: #6b7280;
+        }
+
+        .btn-wa {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #25d366;
+            color: white;
+            border: none;
+            font-weight: bold;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .btn-wa:hover {
+            background-color: #128c7e;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>GALAXY MOVIE</h1>
+            <p>Proses Cepat • Garansi Full Durasi • 4K UHD</p>
+        </div>
+
+        <!-- Daftar Harga -->
+        <div class="produk-item">
+            <span class="nama-paket">🍿 Netflix Sharing 1 Bulan</span>
+            <span class="harga">Rp 35.000</span>
+        </div>
+
+        <div class="produk-item">
+            <span class="nama-paket">📺 Netflix Sharing 3 Bulan</span>
+            <span class="harga">Rp 95.000</span>
+        </div>
+
+        <div class="produk-item">
+            <span class="nama-paket">👑 Netflix Private 1 Bulan</span>
+            <span class="harga">Rp 140.000</span>
+        </div>
+
+        <!-- Box Pembayaran -->
+        <div class="pembayaran-box">
+            <div style="font-size: 13px; color: #9ca3af;">Metode Pembayaran (DANA)</div>
+            <!-- Silakan ganti nomor DANA di bawah ini dengan nomor Anda jika perlu -->
+            <div class="nomor-rekening" id="norek">085811277051</div>
+            <button class="btn-salin" onclick="salinNomor()">Salin Nomor DANA</button>
+        </div>
+
+        <!-- Form Input Data Pembeli -->
+        <div class="form-box">
+            <h3>📝 ISI DATA PESANAN</h3>
+            
+            <div class="input-group">
+                <label for="nama">Nama Pembeli:</label>
+                <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+            </div>
+
+            <div class="input-group">
+                <label for="paket">Pilih Paket:</label>
+                <select id="paket">
+                    <option value="Netflix Sharing 1 Bulan (Rp 35.000)">Netflix Sharing 1 Bulan (Rp 35.000)</option>
+                    <option value="Netflix Sharing 3 Bulan (Rp 95.000)">Netflix Sharing 3 Bulan (Rp 95.000)</option>
+                    <option value="Netflix Private 1 Bulan (Rp 140.000)">Netflix Private 1 Bulan (Rp 140.000)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="catatan">Email Anda / Catatan Tambahan:</label>
+                <input type="text" id="catatan" placeholder="Contoh: emailkamu@gmail.com">
+            </div>
+            
+            <!-- Tombol Kirim ke WhatsApp -->
+            <button class="btn-wa" onclick="kirimKeWA()">
+                🟢 Konfirmasi Bayar & Kirim via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi Salin Nomor DANA otomatis
+        function salinNomor() {
+            var nomor = document.getElementById("norek").innerText;
+            navigator.clipboard.writeText(nomor);
+            alert("Nomor DANA berhasil disalin: " + nomor);
+        }
+
+        // Fungsi menyusun teks form dan mengarahkan otomatis ke WA Anda
+        function kirimKeWA() {
+            var nama = document.getElementById("nama").value;
+            var paket = document.getElementById("paket").value;
+            var catatan = document.getElementById("catatan").value;
+
+            // Validasi agar pembeli wajib mengisi kolom Nama terlebih dahulu
+            if (nama.trim() === "") {
+                alert("Mohon isi Nama Pembeli terlebih dahulu!");
+                return;
+            }
+
+            // Ganti ke nomor WhatsApp Anda dengan format kode negara 62 di depan
+            var nomorWA = "6285811277051";
+
+            // Menyusun format teks pesan WhatsApp
+            var pesan = "Halo Admin Galaxy Movie, saya sudah melakukan transfer.\n\n" +
+                        "Berikut Data Pesanan Saya:\n" +
+                        "• Nama: " + nama + "\n" +
+                        "• Paket: " + paket + "\n" +
+                        "• Catatan/Email: " + (catatan ? catatan : "-") + "\n\n" +
+                        "Mohon segera diproses dan kirimkan akunnya ya Min. Terima kasih!";
+
+            // Mengodekan teks ke dalam format URL agar spasi dan enter terbaca di WA
+            var urlWA = "https://wa.me" + nomorWA + "?text=" + encodeURIComponent(pesan);
+
+            // Membuka tab baru langsung ke aplikasi WhatsApp
+            window.open(urlWA, '_blank');
+        }
+    </script>
+
+</body>
+</html>
