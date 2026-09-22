@@ -5,33 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galaxy Movie - Premium Store</title>
     <style>
+        :root {
+            --primary: #e50914;
+            --bg-dark: #0b0f19;
+            --card-bg: #111827;
+            --input-bg: #1f2937;
+            --text-gold: #f39c12;
+        }
+
         body {
-            background-color: #0b0f19;
+            background-color: var(--bg-dark);
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 15px;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
         }
 
         .container {
             width: 100%;
             max-width: 480px;
-            background-color: #111827;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             border: 1px solid #1f2937;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
 
         .header h1 {
-            color: #e50914;
+            color: var(--primary);
             text-align: center;
             margin-bottom: 5px;
-            letter-spacing: 2px;
-            font-size: 28px;
+            letter-spacing: 3px;
+            font-size: 32px;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
         }
 
         .header p {
@@ -39,7 +52,51 @@
             text-align: center;
             font-size: 13px;
             margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* Navigasi Ganti Halaman (Tabs) */
+        .tab-navigation {
+            display: flex;
+            background-color: #1f2937;
+            padding: 5px;
+            border-radius: 14px;
             margin-bottom: 25px;
+            border: 1px solid #374151;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+        }
+
+        /* Pengaturan Tampilan Halaman */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .status-badge {
@@ -48,160 +105,185 @@
             align-items: center;
             gap: 8px;
             background-color: #1f2937;
-            padding: 8px;
+            padding: 10px;
             border-radius: 30px;
             margin-bottom: 25px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             border: 1px solid #374151;
         }
+
         .dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background-color: #25d366;
             border-radius: 50%;
-            display: inline-block;
             box-shadow: 0 0 8px #25d366;
+            animation: pulse 1.5s infinite;
         }
 
-        .price-section {
-            margin-bottom: 25px;
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
+
         .price-section h3 {
-            font-size: 15px;
-            color: #e50914;
-            border-bottom: 1px solid #374151;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            margin-top: 20px;
         }
+
         .produk-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #1f2937;
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            border-radius: 10px;
+            background: linear-gradient(145deg, #1f2937, #111827);
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border-radius: 14px;
             font-size: 14px;
+            border: 1px solid #1f2937;
+            transition: 0.2s;
         }
-        .nama-paket { font-weight: 500; }
-        .harga { font-weight: 700; color: #f39c12; }
 
-        .pembayaran-box {
+        .produk-item:hover {
+            border-color: #374151;
+        }
+
+        .nama-paket { font-weight: 500; }
+        .harga { font-weight: 700; color: var(--text-gold); font-size: 15px; }
+
+        /* Box QRIS Premium */
+        .pembayaran-container {
             background-color: #1f2937;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 25px;
+            padding: 20px;
+            border-radius: 16px;
             text-align: center;
             border: 1px dashed #4b5563;
+            margin-bottom: 15px;
         }
+
         .qris-btn {
-            background-color: #e50914;
+            background: linear-gradient(135deg, #e50914, #b80710);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
             font-size: 14px;
-            margin-top: 10px;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
             transition: 0.3s;
         }
-        .qris-btn:hover { background-color: #b80710; }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 320px;
-            width: 90%;
-        }
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .close-btn {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            margin-top: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-        }
 
-        .form-box {
-            background-color: #1f2937;
-            padding: 18px;
-            border-radius: 12px;
-            margin-top: 25px;
-            border: 1px solid #374151;
-        }
-        .form-box h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 15px;
-            color: #f39c12;
-            text-align: center;
-        }
-        .input-group { margin-bottom: 12px; }
+        .qris-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4); }
+
+        /* Form Styling */
+        .input-group { margin-bottom: 15px; }
         .input-group label {
             display: block;
             font-size: 12px;
             color: #9ca3af;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
+
         .input-group input, .input-group select {
             width: 100%;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             border: 1px solid #4b5563;
             background-color: #111827;
             color: white;
             font-size: 14px;
             box-sizing: border-box;
+            transition: 0.2s;
         }
+
         .input-group input:focus, .input-group select:focus {
             outline: none;
-            border-color: #e50914;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
         }
 
         .btn-wa {
             display: block;
             width: 100%;
             text-align: center;
-            background-color: #25d366;
+            background: linear-gradient(135deg, #25d366, #128c7e);
             color: white;
             border: none;
-            font-weight: bold;
-            padding: 14px;
-            border-radius: 12px;
-            margin-top: 15px;
+            font-weight: 700;
+            padding: 15px;
+            border-radius: 14px;
+            margin-top: 20px;
             font-size: 15px;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
             transition: 0.3s;
             box-sizing: border-box;
-            text-decoration: none;
         }
-        .btn-wa:hover {
-            background-color: #128c7e;
+
+        .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+
+        /* Modal QRIS */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 320px;
+            width: 85%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content img { width: 100%; height: auto; border-radius: 10px; border: 1px solid #e5e7eb; }
+        .close-btn {
+            background-color: #111827;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        /* Fitur Keren Tambahan: Testimoni Berjalan (Marquee) */
+        .review-box {
+            margin-top: 30px;
+            background-color: #1f2937;
+            padding: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 12px;
+            color: #9ca3af;
+            border: 1px solid #374151;
         }
     </style>
 </head>
@@ -215,75 +297,25 @@
 
         <div class="status-badge">
             <span class="dot"></span>
-            <span>STATUS ADMIN: ONLINE (SIAP PROSES)</span>
+            <span>ADMIN SEDANG ONLINE & SIAP PROSES</span>
         </div>
 
-        <!-- Daftar Harga Paket Sharing -->
-        <div class="price-section">
-            <h3>🍿 PAKET NETFLIX SHARING (1 PROFIL 1 USER)</h3>
-            <div class="produk-item"><span class="nama-paket">Sharing 1 Hari</span><span class="harga">Rp 10.000</span></div>
-            <div class="produk-item"><span class="nama-paket">Sharing 1 Minggu</span><span class="harga">Rp 15.000</span></div>
-            <div class="produk-item"><span class="nama-paket">Sharing 1 Bulan</span><span class="harga">Rp 20.000</span></div>
-            <div class="produk-item"><span class="nama-paket">Sharing 2 Bulan</span><span class="harga">Rp 40.000</span></div>
+        <!-- Tombol Menu Ganti Halaman -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="bukaHalaman(event, 'halaman-harga')">🏷️ Daftar Harga</button>
+            <button class="tab-btn" onclick="bukaHalaman(event, 'halaman-order')">🛒 Form Order</button>
         </div>
 
-        <!-- Daftar Harga Paket Private -->
-        <div class="price-section">
-            <h3>👑 PAKET NETFLIX PRIVATE (FULL 1 AKUN UTUH)</h3>
-            <div class="produk-item"><span class="nama-paket">Private 1 Hari</span><span class="harga">Rp 12.000</span></div>
-            <div class="produk-item"><span class="nama-paket">Private 1 Minggu</span><span class="harga">Rp 17.000</span></div>
-            <div class="produk-item"><span class="nama-paket">Private 1 Bulan</span><span class="harga">Rp 25.000</span></div>
-            <div class="produk-item"><span class="nama-paket">Private 2 Bulan</span><span class="harga">Rp 50.000</span></div>
-        </div>
-
-        <!-- Tombol Bayar via QRIS -->
-        <div class="pembayaran-box">
-            <div style="font-size: 13px; color: #9ca3af;">Metode Pembayaran Instan</div>
-            <button class="qris-btn" onclick="bukaQris()">⚡ KLIK UNTUK BAYAR VIA QRIS</button>
-        </div>
-
-        <!-- Form Input Data Pembeli -->
-        <div class="form-box">
-            <h3>📝 FORMULIR DATA PESANAN</h3>
-            
-            <div class="input-group">
-                <label for="nama">Nama Lengkap Pembeli:</label>
-                <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+        <!-- HALAMAN 1: DAFTAR HARGA -->
+        <div id="halaman-harga" class="page active">
+            <div class="price-section">
+                <h3>🍿 NETFLIX SHARING (1 PROFIL 1 USER)</h3>
+                <div class="produk-item"><span class="nama-paket">Sharing 1 Hari</span><span class="harga">Rp 10.000</span></div>
+                <div class="produk-item"><span class="nama-paket">Sharing 1 Minggu</span><span class="harga">Rp 15.000</span></div>
+                <div class="produk-item"><span class="nama-paket">Sharing 1 Bulan</span><span class="harga">Rp 20.000</span></div>
+                <div class="produk-item"><span class="nama-paket">Sharing 2 Bulan</span><span class="harga">Rp 40.000</span></div>
             </div>
 
-            <div class="input-group">
-                <label for="paket">Pilih Paket Netflix:</label>
-                <select id="paket">
-                    <option value="Sharing 1 Hari (Rp 10.000)">Sharing 1 Hari (Rp 10.000)</option>
-                    <option value="Sharing 1 Minggu (Rp 15.000)">Sharing 1 Minggu (Rp 15.000)</option>
-                    <option value="Sharing 1 Bulan (Rp 20.000)">Sharing 1 Bulan (Rp 20.000)</option>
-                    <option value="Sharing 2 Bulan (Rp 40.000)">Sharing 2 Bulan (Rp 40.000)</option>
-                    <option value="Private 1 Hari (Rp 12.000)">Private 1 Hari (Rp 12.000)</option>
-                    <option value="Private 1 Minggu (Rp 17.000)">Private 1 Minggu (Rp 17.000)</option>
-                    <option value="Private 1 Bulan (Rp 25.000)">Private 1 Bulan (Rp 25.000)</option>
-                    <option value="Private 2 Bulan (Rp 50.000)">Private 2 Bulan (Rp 50.000)</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label for="catatan">Email Anda untuk Akun / Catatan Tambahan:</label>
-                <input type="text" id="catatan" placeholder="Contoh: emailanda@gmail.com">
-            </div>
-            
-            <button class="btn-wa" onclick="kirimKeWA()">
-                🟢 Konfirmasi Transfer & Ambil Akun
-            </button>
-        </div>
-    </div>
-
-    <!-- Pop-up Gambar QRIS ALIANSISHOP -->
-    <div id="qrisModal" class="modal">
-        <div class="modal-content">
-            <h3 style="color: #333; margin-top: 0; font-size: 16px; margin-bottom: 10px;">QRIS ALIANSISHOP</h3>
-            <img src="qris.png" alt="QRIS Aliansishop">
-            <p style="color: #666; font-size: 11px; margin: 8px 0 0 0;">*Screenshot barcode di atas lalu bayar lewat e-wallet atau aplikasi bank Anda</p>
-            <button class="close-btn" onclick="tutupQris()">Tutup</button>
-        </div>
-    </div>
-
-    <script>
+            <div class="price-section">
+                <h3>👑 NETFLIX PRIVATE (FULL AKUN UTUH)</h3>
+                <div class="produk-item"><span class="nama-paket">Private 1 Hari</span><span class="harga">Rp 12.000</span></div>
