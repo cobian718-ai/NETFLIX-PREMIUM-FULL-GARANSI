@@ -84,7 +84,7 @@
             box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
         }
 
-        /* Pengaturan Tampilan Halaman */
+        /* Tampilan Halaman */
         .page {
             display: none;
             animation: fadeIn 0.4s ease-in-out;
@@ -148,24 +148,19 @@
             border-radius: 14px;
             font-size: 14px;
             border: 1px solid #1f2937;
-            transition: 0.2s;
-        }
-
-        .produk-item:hover {
-            border-color: #374151;
         }
 
         .nama-paket { font-weight: 500; }
         .harga { font-weight: 700; color: var(--text-gold); font-size: 15px; }
 
-        /* Box QRIS Premium */
+        /* Box QRIS */
         .pembayaran-container {
             background-color: #1f2937;
             padding: 20px;
             border-radius: 16px;
             text-align: center;
             border: 1px dashed #4b5563;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
         }
 
         .qris-btn {
@@ -179,12 +174,15 @@
             font-size: 14px;
             width: 100%;
             box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
-            transition: 0.3s;
         }
 
-        .qris-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4); }
-
         /* Form Styling */
+        .form-box {
+            background-color: #1f2937;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #374151;
+        }
         .input-group { margin-bottom: 15px; }
         .input-group label {
             display: block;
@@ -202,13 +200,6 @@
             color: white;
             font-size: 14px;
             box-sizing: border-box;
-            transition: 0.2s;
-        }
-
-        .input-group input:focus, .input-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
         }
 
         .btn-wa {
@@ -225,11 +216,8 @@
             font-size: 15px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            transition: 0.3s;
             box-sizing: border-box;
         }
-
-        .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
 
         /* Modal QRIS */
         .modal {
@@ -253,12 +241,6 @@
             text-align: center;
             max-width: 320px;
             width: 85%;
-            animation: zoomIn 0.3s ease;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-content img { width: 100%; height: auto; border-radius: 10px; border: 1px solid #e5e7eb; }
@@ -274,7 +256,6 @@
             width: 100%;
         }
 
-        /* Fitur Keren Tambahan: Testimoni Berjalan (Marquee) */
         .review-box {
             margin-top: 30px;
             background-color: #1f2937;
@@ -300,10 +281,10 @@
             <span>ADMIN SEDANG ONLINE & SIAP PROSES</span>
         </div>
 
-        <!-- Tombol Menu Ganti Halaman -->
+        <!-- Navigasi Ganti Halaman -->
         <div class="tab-navigation">
-            <button class="tab-btn active" onclick="bukaHalaman(event, 'halaman-harga')">🏷️ Daftar Harga</button>
-            <button class="tab-btn" onclick="bukaHalaman(event, 'halaman-order')">🛒 Form Order</button>
+            <button id="btn-tab1" class="tab-btn active" onclick="bukaHalaman('halaman-harga', 'btn-tab1')">🏷️ Daftar Harga</button>
+            <button id="btn-tab2" class="tab-btn" onclick="bukaHalaman('halaman-order', 'btn-tab2')">🛒 Form Order</button>
         </div>
 
         <!-- HALAMAN 1: DAFTAR HARGA -->
@@ -319,3 +300,14 @@
             <div class="price-section">
                 <h3>👑 NETFLIX PRIVATE (FULL AKUN UTUH)</h3>
                 <div class="produk-item"><span class="nama-paket">Private 1 Hari</span><span class="harga">Rp 12.000</span></div>
+                <div class="produk-item"><span class="nama-paket">Private 1 Minggu</span><span class="harga">Rp 17.000</span></div>
+                <div class="produk-item"><span class="nama-paket">Private 1 Bulan</span><span class="harga">Rp 25.000</span></div>
+                <div class="produk-item"><span class="nama-paket">Private 2 Bulan</span><span class="harga">Rp 50.000</span></div>
+            </div>
+            
+            <p style="text-align: center; font-size: 12px; color: #6b7280; margin-top: 20px;">Setelah pilih paket, klik menu "Form Order" di atas untuk bayar.</p>
+        </div>
+
+        <!-- HALAMAN 2: FORM ORDER & BAYAR -->
+        <div id="halaman-order" class="page">
+            <div class="pembayaran-container">
